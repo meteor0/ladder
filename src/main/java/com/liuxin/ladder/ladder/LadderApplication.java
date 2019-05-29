@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class LadderApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(LadderApplication.class, args);
-	}
+   SpringApplication.run(LadderApplication.class, args);
+  }
 
 }
