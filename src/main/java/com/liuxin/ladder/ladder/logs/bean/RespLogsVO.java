@@ -1,15 +1,14 @@
 package com.liuxin.ladder.ladder.logs.bean;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /** log的输出日志 */
-public class ResLogsVO  implements Serializable{
+public class RespLogsVO  implements Serializable{
 
   private static final long serialVersionUID = -3935318746045374112L;
 
   // 日志产生的时间，格式为yyyy-mm-dd h:i:s，示例：2019-04-29 13:30:00
-  private Date time;
+  private String time;
 
   // 系统对应的域名
   private String domain;
@@ -28,12 +27,14 @@ public class ResLogsVO  implements Serializable{
 
   // 错误日志的说明
   private String errorMsg;
+  
+  private String erroInfo;
 
-  public Date getTime() {
+  public String getTime() {
     return time;
   }
 
-  public void setTime(Date time) {
+  public void setTime(String time) {
     this.time = time;
   }
 
@@ -85,7 +86,7 @@ public class ResLogsVO  implements Serializable{
     this.errorMsg = errorMsg;
   }
 
-  public ResLogsVO(Date time, String domain, String url, String params, String appId,
+  public RespLogsVO(String time, String domain, String url, String params, String appId,
       String errorCode, String errorMsg) {
     super();
     this.time = time;
@@ -97,8 +98,18 @@ public class ResLogsVO  implements Serializable{
     this.errorMsg = errorMsg;
   }
 
-  public ResLogsVO() {
+  public RespLogsVO() {
     super();
   }
 
+  public String getErroInfo() {
+    return erroInfo;
+  }
+
+  public void setErroInfo(GlobalExceptionEnum exception) {
+    this.erroInfo = exception.getCode();
+    this.errorMsg = exception.getName();
+  }
+
+  
 }
