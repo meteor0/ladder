@@ -1,4 +1,4 @@
-package com.liuxin.ladder.ladder.logs.bean;
+package com.liuxin.ladder.logs.bean;
 
 public enum GlobalExceptionEnum {
   

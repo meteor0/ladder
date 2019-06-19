@@ -1,4 +1,4 @@
-package com.liuxin.ladder.ladder.logs.exception;
+package com.liuxin.ladder.logs.exception;
 
 import java.net.BindException;
 import java.time.LocalDateTime;
@@ -13,21 +13,18 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.liuxin.ladder.ladder.logs.bean.GlobalExceptionEnum;
-import com.liuxin.ladder.ladder.logs.bean.RespLogsVO;
+import com.liuxin.ladder.logs.bean.GlobalExceptionEnum;
+import com.liuxin.ladder.logs.bean.RespLogsVO;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-  Logger logger = LoggerFactory.getLogger("elk_log");
+  /**用于elk错误日志收集*/
+  private static Logger elkLog = LoggerFactory.getLogger("elk_log");  
   
-  @ExceptionHandler(Exception.class)
+  @ExceptionHandler(BindException.class)
   public void runtimeException(HttpServletRequest request, Exception ex){
     
-    
-    if(ex instanceof BindException) {
-      System.err.println("2222");
-    }
     RespLogsVO sysLog = new RespLogsVO();
     //获取请求参数信息
     String param = JSON.toJSONString(request.getParameterMap());
@@ -39,6 +36,6 @@ public class GlobalExceptionHandler {
     sysLog.setUrl(request.getRequestURI());
     sysLog.setParams(param);
     sysLog.setErroInfo(GlobalExceptionEnum.APPID_MISSING);
-    logger.info(JSONObject.toJSONString(sysLog));
+    elkLog.info(JSONObject.toJSONString(sysLog));
   }
 }

@@ -1,4 +1,4 @@
-package com.liuxin.ladder.ladder;
+package com.liuxin.ladder;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
