@@ -1,4 +1,7 @@
 package com.liuxin.ladder.designpatterns.strategy;
 
-public class Strategy {
+public interface Strategy {
+
+    public void strategyInterface();
+
 }
