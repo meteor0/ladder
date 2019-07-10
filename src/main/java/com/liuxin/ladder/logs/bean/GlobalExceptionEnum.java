@@ -4,7 +4,7 @@ public enum GlobalExceptionEnum {
   
   
   /**
-   * 多媒体教室类型编码与名称
+   * 错误信息编码与名称枚举类
    */
   PARAM_MISSING("101", "参数缺失"),
   PARAM_TYPE_NOT_MATCH("102", "参数类型不匹配"),
