@@ -1,4 +1,7 @@
-package com.liuxin.ladder.designpatterns.proxy;
+package com.liuxin.ladder.designpatterns.proxy.staticp;
 
-public class Home {
+public interface Home {
+
+     void selectHome();
+
 }

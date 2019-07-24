@@ -1,4 +1,4 @@
-package com.liuxin.ladder.designpatterns.proxy.dynamic;
+package com.liuxin.ladder.designpatterns.proxy.jdk;
 
 public class BookFacadeImpl implements  BookFacade {
     @Override

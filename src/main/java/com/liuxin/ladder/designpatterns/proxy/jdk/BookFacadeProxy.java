@@ -1,4 +1,4 @@
-package com.liuxin.ladder.designpatterns.proxy.dynamic;
+package com.liuxin.ladder.designpatterns.proxy.jdk;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -12,8 +12,9 @@ public class BookFacadeProxy implements InvocationHandler {
 
     /**
      * 绑定业务对象并返回一个代理类
+     * @param  target 将目标对象传入进行代理
      */
-    public Object bind(Object target) {
+    public Object newProxy(Object target) {
         //接收业务实现类对象参数
         this.target = target;
 
