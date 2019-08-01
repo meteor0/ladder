@@ -12,10 +12,12 @@ public class Pudding extends MilkTeaMeterial {
         super(drinkMilkTea);
     }
 
+    @Override
     public BigDecimal getTotalPrice() {
         return super.getTotalPrice().add(new BigDecimal(2));
     }
 
+    @Override
     public String useMeterial() {
         return super.useMeterial()+"添加:布丁,";
     }
