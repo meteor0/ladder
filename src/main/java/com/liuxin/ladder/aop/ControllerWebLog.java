@@ -12,6 +12,8 @@ import java.lang.annotation.*;
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ControllerWebLog  {
+
+    //为所调用接口的名称
     String name();
 
     boolean intoDb() default false;
