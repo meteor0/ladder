@@ -1,6 +1,7 @@
 package com.liuxin.ladder.aop.redis;
 
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -45,10 +46,10 @@ public class EnableRedisAspect {
             String prefix = enableRedis.prefix();
             expireTimes = enableRedis.expireTimes();
             String[] params = enableRedis.params();
-            if(params.length>0 && params != null){
+            if (params.length > 0 && params != null) {
                 keyName = RedisUtil.returnRedisKey(joinPoint, prefix, params);
-            }else{
-                keyName = RedisKeyConstant.SPLIT+prefix;
+            } else {
+                keyName = RedisKeyConstant.SPLIT + prefix;
             }
             String result = getResultFromRedis(keyName);
             if (StringUtils.isNotBlank(result)) {
@@ -61,7 +62,7 @@ public class EnableRedisAspect {
                 obj = joinPoint.proceed(args);
                 //赋值
                 if (keyName != null && obj != null) {
-                    String value = JSONObject.toJSONString(obj);
+                    String value = JSON.toJSONString(obj);
                     setResultToRedis(keyName, value, expireTimes);
                     logger.debug("设置缓存key:{}，value:{}", keyName, value);
                 }
@@ -81,7 +82,7 @@ public class EnableRedisAspect {
      */
     private String getResultFromRedis(String key) {
         String result = redisTemplate.opsForValue().get(key);
-        logger.debug("从redis中获取数据 key:{},result:{}", key,result);
+        logger.debug("从redis中获取数据 key:{},result:{}", key, result);
         return result;
     }
 
@@ -94,7 +95,11 @@ public class EnableRedisAspect {
      */
     private void setResultToRedis(String key, String value, int expireTimes) {
         if (key != null && value != null) {
-            redisTemplate.opsForValue().set(key, value, expireTimes, TimeUnit.SECONDS);
+            if (-1 == expireTimes) {
+                redisTemplate.opsForValue().set(key, value);
+            } else {
+                redisTemplate.opsForValue().set(key, value, expireTimes, TimeUnit.SECONDS);
+            }
         }
     }
 }

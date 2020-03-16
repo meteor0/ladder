@@ -106,11 +106,7 @@ public class RedisUtil {
      */
     public static Object getValueActualTypeData(ProceedingJoinPoint joinPoint, String value) throws ClassNotFoundException {
         Method method = getMethod(joinPoint);
-        Class returnActualType = getReturnActualType(method);
-        if (null != returnActualType) {
-            return JSONObject.parseArray(value, returnActualType);
-        }
-        return null;
+        return  getDate(value,method);
     }
 
     /**
@@ -120,12 +116,20 @@ public class RedisUtil {
      * @return
      * @throws ClassNotFoundException
      */
-    private static Class getReturnActualType(Method method) throws ClassNotFoundException {
+    private static Object getDate(String value,Method method) throws ClassNotFoundException {
         Type genericReturnType = method.getGenericReturnType();
         if (genericReturnType instanceof ParameterizedType) {
             Type[] actualTypes = ((ParameterizedType) genericReturnType).getActualTypeArguments();
             for (Type actualType : actualTypes) {
-                return Class.forName(actualType.getTypeName());
+                Class returnActualType =  Class.forName(actualType.getTypeName());
+                if (null != returnActualType) {
+                    return JSONObject.parseArray(value, returnActualType);
+                }
+            }
+        }else{
+            Class returnType = method.getReturnType();
+            if (null != returnType) {
+                return JSONObject.parseObject(value, returnType);
             }
         }
         return null;
