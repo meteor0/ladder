@@ -1,7 +1,8 @@
 package com.liuxin.ladder.designpatterns.strategy;
 
 
-/**策略模式与简单工厂模式结合*/
+/**策略模式与简单工厂模式结合
+ * @author meteor*/
 public class ContextFactory {
     private Strategy strategy;
 
