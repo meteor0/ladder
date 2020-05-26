@@ -28,10 +28,12 @@ public class RedissonTest extends LadderApplicationTests {
 
     @Test
     public void  redissonTest(){
+
         RLock lock = redissonClient.getLock("111");
         try {
-
-            lock.lock(5, TimeUnit.SECONDS);
+            lock.lock(-1, TimeUnit.SECONDS);
+            lock.tryLock();
+            lock.tryLock(20,TimeUnit.SECONDS);
         }catch (Exception ex){
           ex.printStackTrace();
         }finally {
